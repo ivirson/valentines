@@ -1,9 +1,9 @@
 import { loadPages } from "./dom.js";
 import { setupAudioControls } from "./audio.js";
-import { setupScrollBehavior, scrollToNext } from "./scroll.js";
+import { setupScrollBehavior } from "./scroll.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadPages(scrollToNext);
+  loadPages();
   setupAudioControls();
   setupScrollBehavior();
 });

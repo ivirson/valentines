@@ -1,6 +1,3 @@
-// js/scroll.js
-import { pagesArray } from "./data.js";
-
 let currentPageIndex = 0;
 const MAX_VISIBLE_DOTS = 7;
 let pages = [];
@@ -20,7 +17,17 @@ function scrollToNext(chevron) {
   const current = chevron.closest(".page");
   const next = current.nextElementSibling;
   if (next) {
-    next.scrollIntoView({ behavior: "smooth" });
+    const nextIndex = [...pages].indexOf(next);
+    scrollToPage(nextIndex);
+  }
+}
+
+function scrollToPrevious(chevron) {
+  const current = chevron.closest(".page");
+  const previous = current.previousElementSibling;
+  if (previous) {
+    const previousIndex = [...pages].indexOf(previous);
+    scrollToPage(previousIndex);
   }
 }
 
@@ -28,20 +35,19 @@ export function setupScrollBehavior() {
   initializePages();
   renderVisibleDots(0);
 
-  // Scroll automático
-  let autoScrollInterval = setInterval(() => {
-    if (currentPageIndex < pages.length - 1) {
-      currentPageIndex++;
-      scrollToPage(currentPageIndex);
-    } else {
-      // Parar no último slide: não avança mais
-      clearInterval(autoScrollInterval); // para o auto scroll se quiser
-    }
+  setupIntersectionObserver();
 
-    scrollToPage(currentPageIndex);
-  }, 10000);
+  //   let autoScrollInterval = setInterval(() => {
+  //     if (currentPageIndex < pages.length - 1) {
+  //       currentPageIndex++;
+  //       scrollToPage(currentPageIndex);
+  //     } else {
+  //       clearInterval(autoScrollInterval);
+  //     }
 
-  // Atualiza ao scroll manual
+  //     scrollToPage(currentPageIndex);
+  //   }, 10000);
+
   window.addEventListener("scroll", () => {
     let closestIndex = 0;
     let minDistance = Infinity;
@@ -59,6 +65,27 @@ export function setupScrollBehavior() {
       renderVisibleDots(currentPageIndex);
     }
   });
+}
+
+function setupIntersectionObserver() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      let visibleEntry = entries.find((entry) => entry.isIntersecting);
+      if (visibleEntry) {
+        const index = [...pages].indexOf(visibleEntry.target);
+        if (index !== currentPageIndex) {
+          currentPageIndex = index;
+          renderVisibleDots(currentPageIndex);
+        }
+      }
+    },
+    {
+      root: null,
+      threshold: 0.6,
+    }
+  );
+
+  pages.forEach((page) => observer.observe(page));
 }
 
 function renderVisibleDots(currentIndex = 0) {
@@ -88,4 +115,4 @@ function renderVisibleDots(currentIndex = 0) {
   }
 }
 
-export { scrollToNext };
+export { scrollToNext, scrollToPrevious };

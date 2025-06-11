@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nosso Dia dos Namorados</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosso Dia dos Namorados</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
-  <audio id="bg-music" autoplay loop>
-    <source src="assets/music/music.mp3" type="audio/mpeg" />
-    Seu navegador não suporta áudio.
-  </audio>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <audio id="bg-music" autoplay loop>
+      <source src="assets/music/music.mp3" type="audio/mpeg" />
+      Seu navegador não suporta áudio.
+    </audio>
 
-  <div id="page-indicator"></div>
+    <div id="page-indicator"></div>
 
-  <button id="music-toggle">▶</button>
+    <button id="music-toggle">
+      <i class="fas fa-play"></i>
+    </button>
 
-  <div class="container" id="pages-container"></div>
+    <div class="container" id="pages-container"></div>
 
-  <script type="module" src="js/main.js"></script>
-</body>
+    <script type="module" src="js/main.js"></script>
+  </body>
 </html>

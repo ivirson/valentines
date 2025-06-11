@@ -6,11 +6,11 @@ export function setupAudioControls() {
     if (music.paused) {
       music
         .play()
-        .then(() => (toggle.textContent = "⏸"))
+        .then(() => (toggle.innerHTML = '<i class="fas fa-pause"></i>'))
         .catch(console.error);
     } else {
       music.pause();
-      toggle.textContent = "▶";
+      toggle.innerHTML = '<i class="fas fa-play"></i>';
     }
   });
 }
